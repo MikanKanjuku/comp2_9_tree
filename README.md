@@ -5,9 +5,7 @@
 二分木のライブラリとユニットテストとテストアプリケーションのプログラムを作成しました。
 ただし、中身が実装されていません。
 実装して、ユニットテストが通るようにしてください。
-
-(https://github.com/MikanKanjuku/comp2_9_tree/actions/workflows/ms_test.yml/badge.svg)](https://github.com/MikanKanjuku/comp2_9_tree/actions/workflows/ms_test.yml)
-
+[![MS Build and Test](https://github.com/MikanKanjuku/comp2_9_tree/actions/workflows/ms_test.yml/badge.svg)](https://github.com/MikanKanjuku/comp2_9_tree/actions/workflows/ms_test.yml)
 （このファイルの上の行の[tpu-game-2024]の部分(2か所)を自分のアカウント名に修正してください）
 
 
