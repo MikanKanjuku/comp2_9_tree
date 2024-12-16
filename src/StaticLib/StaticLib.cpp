@@ -69,19 +69,75 @@ bool add(tree* t, int key, const char* value)
 	}
 
 	// Todo: t->rootの下にkeyの値の大小でleftかrightを切り替えながらpを追加する処理を実装する
-
+	node* current = t->root;
+	while (true) {
+		if (key < current->key) {
+			if (current->left == NULL) {
+				current->left = p;
+				return true;
+			}
+			current = current->left;
+		}
+		else if (key > current->key) {
+			if (current->right == NULL) {
+				current->right = p;
+				return true;
+			}
+			current = current->right;
+		}
+		else {
+			// すでに同じキーが存在する場合は失敗
+			free(p);
+			return false;
+		}
+	}
 	return true;
 }
 
 // keyの値を見てノードを検索して、値を取得する
 const char* find(const tree* t, int key)
 {
-	// ToDo: 実装する
-	return NULL;
+	if (t == NULL || t->root == NULL) return NULL;
+
+	node* current = t->root;
+	while (current != NULL) {
+		if (key == current->key) {
+			return current->value;
+		}
+		else if (key < current->key) {
+			current = current->left;
+		}
+		else {
+			current = current->right;
+		}
+	}
+	return NULL; // 見つからなかった
 }
 
 // keyの小さな順にコールバック関数funcを呼び出す
 void search(const tree* t, void (*func)(const node* p))
 {
-	// ToDo: 実装する
+	if (t == NULL || func == NULL) return;
+
+	node* stack[100]; // スタックのサイズは適宜調整してください
+	int top = -1;     // スタックのインデックス
+	node* current = t->root;
+
+	// 中間順巡回 (非再帰版)
+	while (current != NULL || top != -1)
+	{
+		// 左部分木をスタックに積む
+		while (current != NULL)
+		{
+			stack[++top] = current; // 現在のノードをスタックに追加
+			current = current->left; // 左部分木に移動
+		}
+
+		// 左端に到達したらスタックからノードを取得して処理
+		current = stack[top--];
+		func(current); // コールバック関数を呼び出し
+
+		// 右部分木を探索する
+		current = current->right;
+	}
 }
